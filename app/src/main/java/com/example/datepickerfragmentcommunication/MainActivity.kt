@@ -12,15 +12,22 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity(),TimePickerListener,DatePickerListener {
-    val dataBundle = Bundle()
+    var dataBundle = Bundle()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if(savedInstanceState!=null){
+            dataBundle = savedInstanceState.getBundle("bundle")?:Bundle()
+        }
     }
 
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBundle("bundle",dataBundle)
+    }
     override fun onTimeSetListener(p0: TimePicker?, p1: Int, p2: Int) {
         println("From Activity : Selected Time:$p1:$p2")
 
